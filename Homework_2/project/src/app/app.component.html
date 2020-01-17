@@ -1,0 +1,12 @@
+<!-- Задание 1
+Создайте простое приложение используя Angular 2. Определите в AppComponent следующий массив.
+const VALUES = [
+"Hello World", "Привет Мир","Привіт Світ", "Hola Mundo", "Bonjour le monde", "Hallo Welt", "Ciao mondo", "Witaj świecie", "Hej världen", "Pozdravljen, svet", "Прывітанне Сусвет"];
+Выведите массив в виде списка в шаблоне AppComponent. -->
+
+<ul>
+  <li *ngFor="let item of arr" (click)="funcMsg(item)">{{item}}</li>
+</ul>
+
+
+<router-outlet></router-outlet>
