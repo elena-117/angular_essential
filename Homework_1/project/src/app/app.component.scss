@@ -1,0 +1,31 @@
+.header-top {
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+.header-top .container {
+  width: 60%;
+  margin: 0 auto;
+  text-align: right;
+}
+
+.header-logo {
+  text-align: left;
+}
+
+.header-menu-item {
+  margin-left: 30px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #ffffff;
+  background-color: teal;
+  font-size: 16px;
+  font-family: sans-serif;
+  padding: 10px 30px;
+  border-radius: 20px;
+}
+
+.header-menu-item:hover {
+  //   background-color: rgb(37, 153, 141);
+  background-color: lighten($color: teal, $amount: 5);
+}
