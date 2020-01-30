@@ -1,0 +1,39 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th style="width: 10%;">
+        <select (change)="chooseCategory($event.target.value)">
+          <option *ngFor="let item of categories">{{item}}</option>
+        </select>
+      </th>
+    </tr>
+    <tr>
+      <th>id</th>
+      <th>name</th>
+      <th>price</th>
+      <th>category</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of currentProducts" [ngClass]="{'colorRed': setColorRow(item.price)}">
+      <td>{{item.id}}</td>
+      <td>{{item.name}}</td>
+      <td>{{item.price}}</td>
+      <td>{{item.category}}</td>
+      <td><button class="btn btn-primary" [ngClass]="{'hide': hideItem()}" (click)="delete(item.id)">Delete</button>
+      </td>
+    </tr>
+    <tr [ngClass]="{'hide': hideItem()}">
+      <td><input class="form-control" type="text" name="id" [(ngModel)]="newItem.id" required></td>
+      <td><input class="form-control" type="text" name="name" [(ngModel)]="newItem.name" required></td>
+      <td><input class="form-control" type="text" name="price" [(ngModel)]="newItem.price" required></td>
+      <td><input class="form-control" type="text" name="category" [(ngModel)]="newItem.category" required></td>
+      <td><button class="btn btn-primary" (click)="addItem()">Add</button></td>
+    </tr>
+  </tbody>
+</table>
