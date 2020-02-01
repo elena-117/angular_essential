@@ -1,0 +1,23 @@
+.products-details {
+  margin-top: 15px;
+}
+
+.products-details-item span {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.products-details .button {
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 20px;
+  padding: 8px 16px;
+  background-color: dimgrey;
+  color: #ffffff;
+  border-radius: 8px;
+}
+
+.products-details .button:hover {
+  background-color: #000000;
+  opacity: 0.7;
+}

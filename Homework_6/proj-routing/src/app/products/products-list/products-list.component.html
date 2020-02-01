@@ -1,0 +1,9 @@
+<h3>Products</h3>
+
+<ul class="products">
+  <li *ngFor="let product of products" (click)="onSelect(product)">
+    {{product.name}}
+  </li>
+</ul>
+
+<router-outlet></router-outlet>

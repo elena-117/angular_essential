@@ -1,0 +1,10 @@
+<div *ngIf="product" class="products-details-container">
+  <h3>Product details</h3>
+  <div class="products-details">
+    <p class="products-details-item"><span>Name:</span> {{product.name}}</p>
+    <p class="products-details-item"><span>Price:</span> {{product.price}}</p>
+    <p class="products-details-item"><span>Category:</span> {{product.category}}</p>
+
+    <a class="button" (click)="hide()">Hide</a>
+  </div>
+</div>

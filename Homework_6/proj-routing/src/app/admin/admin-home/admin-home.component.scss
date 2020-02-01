@@ -1,0 +1,9 @@
+.admin-menu a {
+  margin: 15px 20px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.admin-menu a.router-link-active {
+  text-decoration: underline;
+}

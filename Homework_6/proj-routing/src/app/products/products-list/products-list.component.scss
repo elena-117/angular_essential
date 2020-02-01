@@ -1,0 +1,16 @@
+.products li {
+  width: 300px;
+  font-size: 18px;
+  padding: 2px;
+  margin: 4px;
+  cursor: pointer;
+}
+
+.products li:hover {
+  background-color: lavender;
+}
+
+.products .selected {
+  background-color: lavender;
+  font-weight: bold;
+}

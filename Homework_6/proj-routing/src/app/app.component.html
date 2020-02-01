@@ -1,0 +1,11 @@
+<div class="container">
+  <h2>Урок 5: Маршрутизация</h2>
+
+  <nav class="header-menu">
+    <a class="header-menu-item" [routerLink]="['/home']" routerLinkActive="router-link-active">Home</a>
+    <a class="header-menu-item" [routerLink]="['/products']" routerLinkActive="router-link-active">Products</a>
+    <a class="header-menu-item" [routerLink]="['/admin']" routerLinkActive="router-link-active">Admin</a>
+  </nav>
+
+  <router-outlet></router-outlet>
+</div>
