@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
-export class feedback {
+export class User {
   name: string;
   email: string;
   phone: number;
