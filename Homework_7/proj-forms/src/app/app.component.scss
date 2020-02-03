@@ -1,0 +1,23 @@
+h2 {
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+
+.header-menu {
+  margin-bottom: 30px;
+}
+
+.header-menu-item {
+  margin: 20px 8px;
+  text-decoration: none;
+  padding: 8px 15px;
+  background-color: olivedrab;
+  color: #ffffff;
+  border-radius: 8px;
+  transition: all 0.5s;
+}
+
+.header-menu-item.router-link-active {
+  text-decoration: underline;
+  padding: 10px 16px;
+}
