@@ -49,5 +49,6 @@
     </div>
   </div>
 
-  <input type="submit" class="btn btn-primary" [disabled]="feedbackForm.invalid" value="Send your message">
+  <input type="submit" class="btn btn-primary" [disabled]="feedbackForm.invalid" value="Send your message"
+    (click)="sendForm()">
 </form>

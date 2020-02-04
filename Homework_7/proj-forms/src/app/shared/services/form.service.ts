@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { User } from "../models/user.model";
 
 @Injectable({
   providedIn: "root"
@@ -7,14 +8,13 @@ import { Observable } from "rxjs";
 export class FormService {
   constructor() {}
 
-  sendForm(form) {
-    // console.log(form);
-    const feedbackForm = new Observable(observer => {
+  sendForm(form: User) {
+    const formObservable = new Observable(observer => {
       setTimeout(() => {
-        observer.next(form);
+        observer.next(alert(`${form.name}, your message has been successfully sent!`));
       }, 1000);
     });
 
-    return feedbackForm;
+    return formObservable;
   }
 }

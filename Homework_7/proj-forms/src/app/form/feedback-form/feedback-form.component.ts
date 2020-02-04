@@ -1,7 +1,10 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormService } from "src/app/shared/services/form.service";
+import { User } from "src/app/shared/models/user.model";
+import { Subscription } from "rxjs";
 
-export class User {
+export class UserForm {
   name: string;
   email: string;
   phone: number;
@@ -13,8 +16,10 @@ export class User {
   templateUrl: "./feedback-form.component.html",
   styleUrls: ["./feedback-form.component.scss"]
 })
-export class FeedbackFormComponent implements OnInit {
-  constructor(private fb: FormBuilder) {}
+export class FeedbackFormComponent implements OnInit, OnDestroy {
+  private subscription: Subscription = new Subscription();
+
+  constructor(private fb: FormBuilder, private _formService: FormService) {}
 
   feedbackForm: FormGroup;
   formattedMessage: string;
@@ -29,22 +34,26 @@ export class FeedbackFormComponent implements OnInit {
       ],
       message: ["", Validators.required]
     });
-
-    this.onChanges();
   }
 
-  onChanges(): void {
-    this.feedbackForm.valueChanges.subscribe(val => {
-      this.formattedMessage = `Hello,
-  
-      My name is ${val.name} and my email is ${val.email}.
-  
-      I would like to tell you that ${val.message}.`;
-    });
+  sendForm() {
+    // console.log(this.feedbackForm);
+    if (this.feedbackForm.valid) {
+      this.subscription.add(
+        this._formService
+          .sendForm(this.feedbackForm.value as User)
+          .subscribe(res => {
+            console.log(res);
+          })
+      );
+    }
   }
 
   onSubmit(form) {
     console.log(form.valid);
     console.log(form.value);
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
