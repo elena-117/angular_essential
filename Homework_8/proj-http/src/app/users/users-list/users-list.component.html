@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <ol>
+        <li *ngFor="let user of users" (click)="onSelect(user)">
+          <span>name:</span> {{user.first_name}} {{user.last_name}}<br>
+          <span>id:</span> {{user.id}}
+        </li>
+      </ol>
+    </div>
+
+    <div class="col-sm-4">
+      <app-user-details *ngIf="currentUser"></app-user-details>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<h3>User details</h3>
+<div class="users-details">
+  <p class="users-details-item" *ngFor="let user of users"><span>First name:</span> {{currentUser.first_name}}</p>
+  <p class="users-details-item" *ngFor="let user of users"><span>Last name:</span> {{currentUser.last_name}}</p>
+  <p class="users-details-item" *ngFor="let user of users"><span>Address:</span> {{currentUser.address}}</p>
+
+  <a class="button" (click)="hide()">Hide</a>
+</div>
