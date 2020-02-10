@@ -11,7 +11,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 export class UsersListComponent implements OnInit {
   // public users: UsersResponseModel;
   public users: Array<UserModel>;
-  @Input() currentUser: UserModel;
+  currentUser: UserModel;
 
   constructor(
     private _userService: HttpService,
