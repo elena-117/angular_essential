@@ -9,7 +9,6 @@ import { Router, ActivatedRoute } from "@angular/router";
   styleUrls: ["./users-list.component.scss"]
 })
 export class UsersListComponent implements OnInit {
-  // public users: UsersResponseModel;
   public users: Array<UserModel>;
   currentUser: UserModel;
 
@@ -24,35 +23,19 @@ export class UsersListComponent implements OnInit {
       this.users = res.result;
       console.log(res.result);
     });
-
-    // let newUser = {
-    //   first_name: "Rrian1",
-    //   last_name: "Batke1",
-    //   gender: "male",
-    //   email: "zzzz@zz.com",
-    //   status: "active"
-    // };
-
-    // this._userServise.setUsers(newUser).subscribe(res => {
-    //   console.log(res);
-    // });
   }
 
-  getCurrentUser(id: string) {
-    this._userService.getCurrentUser(id).subscribe(res => {
-      console.log(res);
-    });
-  }
   deleteCurrentUser(id: string) {
     this._userService.deleteCurrentUser(id).subscribe(res => {
       console.log(res);
     });
   }
 
-  onSelect(selected: UserModel) {
+  getCurrentUser(selected: UserModel) {
     this.router.navigate(["user-details/", selected.id], {
       relativeTo: this.activatedRoute
     });
+    // console.log(this.activatedRoute.params);
     this.currentUser = selected;
     console.log(this.currentUser);
   }

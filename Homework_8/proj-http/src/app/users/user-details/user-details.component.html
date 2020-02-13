@@ -1,8 +1,31 @@
 <h3>User details</h3>
-<div class="users-details">
-  <p class="users-details-item" *ngFor="let user of users"><span>First name:</span> {{currentUser.first_name}}</p>
-  <p class="users-details-item" *ngFor="let user of users"><span>Last name:</span> {{currentUser.last_name}}</p>
-  <p class="users-details-item" *ngFor="let user of users"><span>Address:</span> {{currentUser.address}}</p>
+<form [formGroup]="userDetailsForm" *ngIf="data" (ngSubmit)="onSubmit(userDetailsForm)">
+  <div class="form-group">
+    <label for="id">ID</label>
+    <input type="text" id="id" class="form-control" formControlName="id" value="{{data.id}}">
+  </div>
+  <div class="form-group">
+    <label for="firstName">First name</label>
+    <input type="text" id="firstName" class="form-control" formControlName="firstName" value="{{data.first_name}}">
+  </div>
+  <div class="form-group">
+    <label for="lastName">Last name</label>
+    <input type="text" id="lastName" class="form-control" formControlName="lastName" value="{{data.last_name}}">
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="text" id="email" class="form-control" formControlName="email" value="{{data.email}}">
+  </div>
+  <div class="form-group">
+    <label for="phone">Phone</label>
+    <input type="text" id="phone" class="form-control" formControlName="phone" value="{{data.phone}}">
+  </div>
+  <div class="form-group">
+    <label for="address">Address</label>
+    <input type="text" id="address" class="form-control" formControlName="address" value="{{data.address}}">
+  </div>
 
-  <a class="button" (click)="hide()">Hide</a>
-</div>
+  <input type="button" class="btn btn-primary" (click)="deleteUser(data.id)" value="Delete">
+  <input type="button" class="btn btn-primary" (click)="updateUser(data.id)" value="Update">
+
+</form>
