@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { HttpService } from "src/app/shared/services/http.service";
 import { FormBuilder, FormGroup, FormControl } from "@angular/forms";
 import { UserModel } from "src/app/shared/models/user.model";
+import { UserUpdateModel } from "src/app/shared/models/user-update.model";
 
 @Component({
   selector: "app-user-details",
@@ -12,17 +13,19 @@ import { UserModel } from "src/app/shared/models/user.model";
 export class UserDetailsComponent implements OnInit {
   public showInfo: string;
   public users: UserModel;
-  public data: any;
+  public currentUser: UserModel[];
   private id: string;
+  public formUpd: UserUpdateModel;
 
   // public images: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private _userService: HttpService,
     private fb: FormBuilder
   ) {
-    console.log(this.activatedRoute.params);
+    // console.log(this.activatedRoute.params);
 
     this.activatedRoute.params.forEach(params => {
       if (params["id"]) {
@@ -43,36 +46,47 @@ export class UserDetailsComponent implements OnInit {
   formDetails() {
     this.userDetailsForm = this.fb.group({
       id: new FormControl({ value: "", disabled: true }),
-      firstName: new FormControl(),
-      lastName: new FormControl(),
+      first_name: new FormControl(),
+      last_name: new FormControl(),
       email: new FormControl(),
       phone: new FormControl(),
       address: new FormControl()
+    });
+    console.log(this.userDetailsForm);
+    this.userDetailsForm.valueChanges.subscribe(res => {
+      this.formUpd = res;
+      
+      // this.userDetailsForm.get("first_name").valueChanges.subscribe(value => {
+      //   console.log(value);
+      // });
     });
   }
 
   getCurrentUser(id: string) {
     this._userService.getCurrentUser(id).subscribe(res => {
-      this.data = res.result;
-      console.log(res);
+      this.currentUser = res.result;
     });
   }
 
   deleteUser(id: string) {
-    if (confirm("Delete this user?")) {
+    if (confirm("Are you sure you want to delete this item?")) {
       this._userService.deleteCurrentUser(id).subscribe(res => {
-        this.data = res.result;
+        this.currentUser = res.result;
       });
+      this.router
+        .navigateByUrl("/", { skipLocationChange: true })
+        .then(() => this.router.navigate(["users"]));
     } else {
       return;
     }
   }
 
-  updateUser(id, formUpd) {
-    this._userService.updateCurrentUser(id, formUpd).subscribe(res => {
-      console.log(res.result);
-      // this.data = res;
-      // console.log(res);
+  updateUser(id: string) {
+    this._userService.updateCurrentUser(id, this.formUpd).subscribe(res => {
+      this.currentUser = res.result;
+      this.router
+        .navigateByUrl("/", { skipLocationChange: true })
+        .then(() => this.router.navigate([`users/user-details/${id}`]));
     });
   }
 }

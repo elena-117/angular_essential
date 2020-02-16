@@ -1,31 +1,32 @@
 <h3>User details</h3>
-<form [formGroup]="userDetailsForm" *ngIf="data" (ngSubmit)="onSubmit(userDetailsForm)">
+<form [formGroup]="userDetailsForm" *ngIf="currentUser" (ngSubmit)="onSubmit(userDetailsForm)">
   <div class="form-group">
     <label for="id">ID</label>
-    <input type="text" id="id" class="form-control" formControlName="id" value="{{data.id}}">
+    <input type="text" id="id" class="form-control" formControlName="id" value="{{currentUser.id}}">
   </div>
   <div class="form-group">
     <label for="firstName">First name</label>
-    <input type="text" id="firstName" class="form-control" formControlName="firstName" value="{{data.first_name}}">
+    <input type="text" id="firstName" class="form-control" formControlName="first_name"
+      value="{{currentUser.first_name}}">
   </div>
   <div class="form-group">
     <label for="lastName">Last name</label>
-    <input type="text" id="lastName" class="form-control" formControlName="lastName" value="{{data.last_name}}">
+    <input type="text" id="lastName" class="form-control" formControlName="last_name" value="{{currentUser.last_name}}">
   </div>
   <div class="form-group">
     <label for="email">Email</label>
-    <input type="text" id="email" class="form-control" formControlName="email" value="{{data.email}}">
+    <input type="text" id="email" class="form-control" formControlName="email" value="{{currentUser.email}}">
   </div>
   <div class="form-group">
     <label for="phone">Phone</label>
-    <input type="text" id="phone" class="form-control" formControlName="phone" value="{{data.phone}}">
+    <input type="text" id="phone" class="form-control" formControlName="phone" value="{{currentUser.phone}}">
   </div>
   <div class="form-group">
     <label for="address">Address</label>
-    <input type="text" id="address" class="form-control" formControlName="address" value="{{data.address}}">
+    <input type="text" id="address" class="form-control" formControlName="address" value="{{currentUser.address}}">
   </div>
 
-  <input type="button" class="btn btn-primary" (click)="deleteUser(data.id)" value="Delete">
-  <input type="button" class="btn btn-primary" (click)="updateUser(data.id)" value="Update">
+  <input type="button" class="btn btn-primary" (click)="deleteUser(currentUser.id)" value="Delete">
+  <input type="button" class="btn btn-primary" (click)="updateUser(currentUser.id)" value="Update">
 
 </form>

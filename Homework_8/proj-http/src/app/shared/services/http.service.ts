@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { UsersResponseModel } from "../models/users.response.model";
-import { UserModel } from "../models/user.model";
 import { UserUpdateModel } from "../models/user-update.model";
 
 @Injectable()
@@ -23,7 +22,7 @@ export class HttpService {
     return this.http.get<UsersResponseModel>(`/users/${id}`);
   }
 
-  public updateCurrentUser(id, formUpd: UserUpdateModel) {
+  public updateCurrentUser(id: string, formUpd: UserUpdateModel) {
     return this.http.patch<UsersResponseModel>(`/users/${id}`, formUpd);
   }
 

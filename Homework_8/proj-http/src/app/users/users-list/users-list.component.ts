@@ -25,11 +25,11 @@ export class UsersListComponent implements OnInit {
     });
   }
 
-  deleteCurrentUser(id: string) {
-    this._userService.deleteCurrentUser(id).subscribe(res => {
-      console.log(res);
-    });
-  }
+  // deleteCurrentUser(id: string) {
+  //   this._userService.deleteCurrentUser(id).subscribe(res => {
+  //     console.log(res);
+  //   });
+  // }
 
   getCurrentUser(selected: UserModel) {
     this.router.navigate(["user-details/", selected.id], {
