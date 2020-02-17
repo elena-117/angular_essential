@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { HttpService } from "src/app/shared/services/http.service";
 import { FormBuilder, FormGroup, FormControl } from "@angular/forms";
 import { UserModel } from "src/app/shared/models/user.model";
-import { UserUpdateModel } from "src/app/shared/models/user-update.model";
 
 @Component({
   selector: "app-user-details",
@@ -13,11 +12,10 @@ import { UserUpdateModel } from "src/app/shared/models/user-update.model";
 export class UserDetailsComponent implements OnInit {
   public showInfo: string;
   public users: UserModel;
-  public currentUser: UserModel[];
+  public currentUser: UserModel;
   private id: string;
-  public formUpd: UserUpdateModel;
-
-  // public images: any;
+  public formUpd: UserModel;
+  public userDetailsForm: FormGroup;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -37,10 +35,15 @@ export class UserDetailsComponent implements OnInit {
     });
   }
 
-  userDetailsForm: FormGroup;
-
   ngOnInit() {
     this.formDetails();
+  }
+
+  getCurrentUser(id: string) {
+    this._userService.getCurrentUser(id).subscribe(res => {
+      this.currentUser = res.result;
+      this.formUpd = this.currentUser;
+    });
   }
 
   formDetails() {
@@ -52,19 +55,16 @@ export class UserDetailsComponent implements OnInit {
       phone: new FormControl(),
       address: new FormControl()
     });
-    console.log(this.userDetailsForm);
+
     this.userDetailsForm.valueChanges.subscribe(res => {
-      this.formUpd = res;
-      
+      for (const key in res) {
+        if (res[key] != null) this.formUpd[key] = res[key];
+        console.log(this.formUpd[key]);
+      }
+
       // this.userDetailsForm.get("first_name").valueChanges.subscribe(value => {
       //   console.log(value);
       // });
-    });
-  }
-
-  getCurrentUser(id: string) {
-    this._userService.getCurrentUser(id).subscribe(res => {
-      this.currentUser = res.result;
     });
   }
 

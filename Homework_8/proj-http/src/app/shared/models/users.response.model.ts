@@ -1,7 +1,7 @@
 import { UserModel } from "./user.model";
 
 export interface UsersResponseModel {
-  result: Array<UserModel>;
+  result: UserModel;
   _meta: {
     code: number;
     currentPage: number;
