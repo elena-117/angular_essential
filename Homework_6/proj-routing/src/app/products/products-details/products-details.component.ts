@@ -20,7 +20,6 @@ export class ProductsDetailsComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.forEach((params: Params) => {
       let id = +params["id"];
-      console.log(id);
       this.service.getProduct(id).then(result => (this.product = result));
     });
   }
