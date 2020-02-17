@@ -1,0 +1,52 @@
+<div *ngIf="currentUser">
+  <h3>Edit User: {{currentUser.first_name}} {{currentUser.last_name}}</h3>
+
+  <form [formGroup]="userEditForm" (ngSubmit)="onSubmit(userEditForm)">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="id">ID</label>
+          <input type="text" id="id" class="form-control" formControlName="id" value="{{currentUser.id}}">
+        </div>
+        <div class="form-group">
+          <label for="firstName">First name</label>
+          <input type="text" id="firstName" class="form-control" formControlName="first_name"
+            value="{{currentUser.first_name}}">
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last name</label>
+          <input type="text" id="lastName" class="form-control" formControlName="last_name"
+            value="{{currentUser.last_name}}">
+        </div>
+        <div class="form-group">
+          <label for="dob">Dob</label>
+          <input type="text" id="dob" class="form-control" formControlName="dob" value="{{currentUser.dob}}">
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" id="email" class="form-control" formControlName="email" value="{{currentUser.email}}">
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input type="text" id="phone" class="form-control" formControlName="phone" value="{{currentUser.phone}}">
+        </div>
+        <div class="form-group">
+          <label for="website">Website</label>
+          <input type="text" id="website" class="form-control" formControlName="website"
+            value="{{currentUser.website}}">
+        </div>
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input type="text" id="address" class="form-control" formControlName="address"
+            value="{{currentUser.address}}">
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="btn btn-primary" (click)="editUser(currentUser.id)">Edit</button>
+    <button type="button" class="btn btn-primary" (click)="deleteUser(currentUser.id)">Delete</button>
+    <button class="btn btn-primary" (click)="goBack()">Back</button>
+  </form>
+</div>
