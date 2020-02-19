@@ -54,10 +54,12 @@ export class EditUserComponent implements OnInit {
       first_name: new FormControl(),
       last_name: new FormControl(),
       dob: new FormControl(),
+      gender: new FormControl(),
       email: new FormControl(),
       phone: new FormControl(),
       website: new FormControl(),
-      address: new FormControl()
+      address: new FormControl(),
+      status: new FormControl()
     });
 
     this.userForm.valueChanges.subscribe(res => {
@@ -65,6 +67,15 @@ export class EditUserComponent implements OnInit {
         if (res[key] != null) this.formUpd[key] = res[key];
         // console.log(this.formUpd[key]);
       }
+    });
+  }
+
+  editUser(id: string) {
+    this._httpService.editCurrentUser(id, this.formUpd).subscribe(res => {
+      this.currentUser = res.result;
+      this.router
+        .navigateByUrl("/", { skipLocationChange: true })
+        .then(() => this.router.navigate([`users/user-details/${id}`]));
     });
   }
 
@@ -109,15 +120,6 @@ export class EditUserComponent implements OnInit {
         .then(() =>
           this.router.navigate([`users/user-details/${res["result"]["id"]}`])
         );
-    });
-  }
-
-  editUser(id: string) {
-    this._httpService.editCurrentUser(id, this.formUpd).subscribe(res => {
-      this.currentUser = res.result;
-      this.router
-        .navigateByUrl("/", { skipLocationChange: true })
-        .then(() => this.router.navigate([`users/user-details/${id}`]));
     });
   }
 
