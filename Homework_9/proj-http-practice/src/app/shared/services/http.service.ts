@@ -16,6 +16,10 @@ export class HttpService {
     return this.http.get<UsersResponseModel>(`/users/${id}`);
   }
 
+  setUser(formUpd: UserModel) {
+    return this.http.post("/users", formUpd);
+  }
+
   editCurrentUser(id: string, formUpd: UserModel) {
     return this.http.patch<UsersResponseModel>(`/users/${id}`, formUpd);
   }

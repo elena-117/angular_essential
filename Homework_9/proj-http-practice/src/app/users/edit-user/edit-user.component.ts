@@ -15,7 +15,8 @@ export class EditUserComponent implements OnInit {
   public id: string;
   public showInfo: string;
   public formUpd: UserModel;
-  public userEditForm: FormGroup;
+  public userForm: FormGroup;
+  public userForm2: FormGroup;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -37,6 +38,7 @@ export class EditUserComponent implements OnInit {
     });
 
     this.editForm();
+    this.createForm();
   }
 
   getCurrentUser(id: string) {
@@ -47,7 +49,7 @@ export class EditUserComponent implements OnInit {
   }
 
   editForm() {
-    this.userEditForm = this.fb.group({
+    this.userForm = this.fb.group({
       id: new FormControl({ value: "", disabled: true }),
       first_name: new FormControl(),
       last_name: new FormControl(),
@@ -58,7 +60,7 @@ export class EditUserComponent implements OnInit {
       address: new FormControl()
     });
 
-    this.userEditForm.valueChanges.subscribe(res => {
+    this.userForm.valueChanges.subscribe(res => {
       for (const key in res) {
         if (res[key] != null) this.formUpd[key] = res[key];
         // console.log(this.formUpd[key]);
@@ -66,14 +68,47 @@ export class EditUserComponent implements OnInit {
     });
   }
 
-  setEmptyForm() {
-    this.userEditForm.patchValue({
-      id: "",
+  createForm() {
+    this.userForm2 = this.fb.group({
+      first_name: new FormControl(),
+      last_name: new FormControl(),
+      dob: new FormControl(),
+      gender: new FormControl(),
+      email: new FormControl(),
+      phone: new FormControl(),
+      website: new FormControl(),
+      address: new FormControl()
+    });
+
+    this.formUpd = {
       first_name: "",
       last_name: "",
+      dob: "",
       email: "",
       phone: "",
-      address: ""
+      website: "",
+      address: "",
+      gender: ""
+    };
+
+    this.userForm2.valueChanges.subscribe(res => {
+      for (const key in res) {
+        if (res[key] != null) this.formUpd[key] = res[key];
+        // console.log(this.formUpd[key]);
+      }
+    });
+    console.log(this.userForm.value);
+  }
+
+  createUser() {
+    this._httpService.setUser(this.formUpd).subscribe(res => {
+      this.formUpd = res;
+      console.log(res);
+      this.router
+        .navigateByUrl("/", { skipLocationChange: true })
+        .then(() =>
+          this.router.navigate([`users/user-details/${res["result"]["id"]}`])
+        );
     });
   }
 
@@ -101,6 +136,12 @@ export class EditUserComponent implements OnInit {
 
   goBack() {
     this.router.navigate(["../../"], {
+      relativeTo: this.activatedRoute
+    });
+  }
+
+  goBack2() {
+    this.router.navigate(["../"], {
       relativeTo: this.activatedRoute
     });
   }
