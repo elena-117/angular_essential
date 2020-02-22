@@ -2,7 +2,12 @@ import { Component, OnInit } from "@angular/core";
 import { UserModel } from "src/app/shared/models/user.model";
 import { ActivatedRoute, Router } from "@angular/router";
 import { HttpService } from "src/app/shared/services/http.service";
-import { FormGroup, FormBuilder, FormControl } from "@angular/forms";
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  Validators
+} from "@angular/forms";
 
 @Component({
   selector: "app-edit-user",
@@ -36,30 +41,44 @@ export class EditUserComponent implements OnInit {
         this.showInfo = `Нет id`;
       }
     });
-
-    this.editForm();
     this.createForm();
   }
 
   getCurrentUser(id: string) {
     this._httpService.getCurrentUser(id).subscribe(res => {
       this.currentUser = res.result;
+      this.editForm(this.currentUser);
       this.formUpd = this.currentUser;
     });
   }
 
-  editForm() {
+  editForm(currentUser: UserModel) {
     this.userForm = this.fb.group({
-      id: new FormControl({ value: "", disabled: true }),
-      first_name: new FormControl(),
-      last_name: new FormControl(),
-      dob: new FormControl(),
-      gender: new FormControl(),
-      email: new FormControl(),
-      phone: new FormControl(),
-      website: new FormControl(),
-      address: new FormControl(),
-      status: new FormControl()
+      id: [{ value: currentUser["id"], disabled: true }],
+      first_name: [currentUser["first_name"], Validators.required],
+      last_name: [currentUser["last_name"], Validators.required],
+      dob: [
+        currentUser["dob"],
+        [Validators.required, Validators.pattern("[0-9]{4}-[0-9]{2}-[0-9]{2}")]
+      ],
+      gender: [currentUser["gender"], Validators.required],
+      email: [
+        currentUser["email"],
+        [
+          Validators.required,
+          Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$")
+        ]
+      ],
+      phone: [currentUser["phone"], [Validators.required]],
+      website: [
+        currentUser["website"],
+        [
+          Validators.required,
+          Validators.pattern("^https?://.+[^s/$.?#].[^s]*$")
+        ]
+      ],
+      address: [currentUser["address"], Validators.required],
+      status: [currentUser["status"], Validators.required]
     });
 
     this.userForm.valueChanges.subscribe(res => {
@@ -71,24 +90,41 @@ export class EditUserComponent implements OnInit {
   }
 
   editUser(id: string) {
-    this._httpService.editCurrentUser(id, this.formUpd).subscribe(res => {
-      this.currentUser = res.result;
-      this.router
-        .navigateByUrl("/", { skipLocationChange: true })
-        .then(() => this.router.navigate([`users/user-details/${id}`]));
-    });
+    if (this.userForm.valid) {
+      this._httpService.editCurrentUser(id, this.formUpd).subscribe(res => {
+        this.currentUser = res.result;
+        this.router
+          .navigateByUrl("/", { skipLocationChange: true })
+          .then(() => this.router.navigate([`users/user-details/${id}`]));
+      });
+    }
   }
 
   createForm() {
     this.userForm2 = this.fb.group({
-      first_name: new FormControl(),
-      last_name: new FormControl(),
-      dob: new FormControl(),
-      gender: new FormControl(),
-      email: new FormControl(),
-      phone: new FormControl(),
-      website: new FormControl(),
-      address: new FormControl()
+      first_name: ["", Validators.required],
+      last_name: ["", Validators.required],
+      dob: [
+        "",
+        [Validators.required, Validators.pattern("[0-9]{4}-[0-9]{2}-[0-9]{2}")]
+      ],
+      gender: ["", Validators.required],
+      email: [
+        "",
+        [
+          Validators.required,
+          Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$")
+        ]
+      ],
+      phone: ["", [Validators.required]],
+      website: [
+        "",
+        [
+          Validators.required,
+          Validators.pattern("^https?://.+[^s/$.?#].[^s]*$")
+        ]
+      ],
+      address: ["", Validators.required]
     });
 
     this.formUpd = {
@@ -108,7 +144,7 @@ export class EditUserComponent implements OnInit {
         // console.log(this.formUpd[key]);
       }
     });
-    console.log(this.userForm.value);
+    console.log(this.userForm2.value);
   }
 
   createUser() {

@@ -12,6 +12,10 @@ export class HttpService {
     return this.http.get<UsersResponseModel>("/users");
   }
 
+  getUsersPage(pageNum: string): Observable<UsersResponseModel> {
+    return this.http.get<UsersResponseModel>(pageNum);
+  }
+
   getCurrentUser(id: string): Observable<UsersResponseModel> {
     return this.http.get<UsersResponseModel>(`/users/${id}`);
   }

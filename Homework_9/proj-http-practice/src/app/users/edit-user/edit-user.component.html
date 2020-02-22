@@ -1,67 +1,134 @@
 <div *ngIf="currentUser">
   <h3>Edit User: {{currentUser.first_name}} {{currentUser.last_name}}</h3>
 
-  <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm)">
+  <form novalidate [formGroup]="userForm" (ngSubmit)="onSubmit(userForm)">
     <div class="row">
       <div class="col-sm-6">
         <div class="form-group">
           <label for="id">ID</label>
-          <input type="text" id="id" class="form-control" formControlName="id" value="{{currentUser.id}}">
+          <input type="text" id="id" class="form-control" formControlName="id">
         </div>
+
         <div class="form-group">
-          <label for="firstName">First name</label>
-          <input type="text" id="firstName" class="form-control" formControlName="first_name"
-            value="{{currentUser.first_name}}">
+          <label for="first_name">First name</label>
+          <input type="text" id="first_name" class="form-control" formControlName="first_name">
+
+          <div *ngIf="userForm.get('first_name').hasError('required') && 
+    userForm.get('first_name').touched" class="alert alert-danger">
+            * required
+          </div>
         </div>
+
         <div class="form-group">
-          <label for="lastName">Last name</label>
-          <input type="text" id="lastName" class="form-control" formControlName="last_name"
-            value="{{currentUser.last_name}}">
+          <label for="last_name">Last name</label>
+          <input type="text" id="last_name" class="form-control" formControlName="last_name">
+
+          <div *ngIf="userForm.get('last_name').hasError('required') && 
+            userForm.get('last_name').touched" class="alert alert-danger">
+            * required
+          </div>
         </div>
+
         <div class="form-group">
           <label for="dob">Dob</label>
-          <input type="text" id="dob" class="form-control" formControlName="dob" value="{{currentUser.dob}}">
+          <input type="text" id="dob" class="form-control" formControlName="dob">
+
+          <div *ngIf="userForm.get('dob').hasError('required') && 
+          userForm.get('dob').touched" class="alert alert-danger">
+            * required
+          </div>
+          <div *ngIf="userForm.get('dob').hasError('pattern') && 
+          userForm.get('dob').touched" class="alert alert-danger">
+            * Please match the required format (yyyy-mm-dd)
+          </div>
         </div>
+
         <div class="form-group">
           <label for="gender">Gender</label>
-          <select id="gender" type="text" class="form-control" formControlName="gender" value="{{currentUser.gender}}">
+          <select id="gender" type="text" class="form-control" formControlName="gender">
             <option></option>
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
+
+          <div *ngIf="userForm.get('gender').hasError('required') && 
+          userForm.get('gender').touched" class="alert alert-danger">
+            * required
+          </div>
         </div>
       </div>
+
       <div class="col-sm-6">
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="text" id="email" class="form-control" formControlName="email" value="{{currentUser.email}}">
+          <input type="text" id="email" class="form-control" formControlName="email">
+
+          <div *ngIf="userForm.get('email').hasError('required') && 
+          userForm.get('email').touched" class="alert alert-danger">
+            * required
+          </div>
+          <div *ngIf="userForm.get('email').hasError('pattern') && 
+          userForm.get('email').touched" class="alert alert-danger">
+            * Please match the required format (test@example.com)
+          </div>
         </div>
+
         <div class="form-group">
           <label for="phone">Phone</label>
-          <input type="text" id="phone" class="form-control" formControlName="phone" value="{{currentUser.phone}}">
+          <input type="text" id="phone" class="form-control" formControlName="phone">
+
+          <div *ngIf="userForm.get('phone').hasError('required') && 
+          userForm.get('phone').touched" class="alert alert-danger">
+            * required
+          </div>
+          <div *ngIf="userForm.get('phone').hasError('pattern') && 
+          userForm.get('phone').touched" class="alert alert-danger">
+            * Please match the required format (8-17 numbers)
+          </div>
         </div>
+
         <div class="form-group">
           <label for="website">Website</label>
-          <input type="text" id="website" class="form-control" formControlName="website"
-            value="{{currentUser.website}}">
+          <input type="text" id="website" class="form-control" formControlName="website">
+
+          <div *ngIf="userForm.get('website').hasError('required') && 
+            userForm.get('website').touched" class="alert alert-danger">
+            * required
+          </div>
+          <div *ngIf="userForm.get('website').hasError('pattern') && 
+          userForm.get('website').touched" class="alert alert-danger">
+            * Please match the required format (https://www.example.com)
+          </div>
         </div>
+
         <div class="form-group">
           <label for="address">Address</label>
-          <input type="text" id="address" class="form-control" formControlName="address"
-            value="{{currentUser.address}}">
+          <input type="text" id="address" class="form-control" formControlName="address">
+
+          <div *ngIf="userForm.get('address').hasError('required') && 
+            userForm.get('address').touched" class="alert alert-danger">
+            * required
+          </div>
         </div>
+
         <div class="form-group">
           <label for="status">Status</label>
-          <select id="status" type="text" class="form-control" formControlName="status" value="{{currentUser.status}}">
+          <select id="status" type="text" class="form-control" formControlName="status">
             <option></option>
             <option value="active">Active</option>
             <option value="inactive">Inactive</option>
           </select>
+
+          <div *ngIf="userForm.get('status').hasError('required') && 
+          userForm.get('status').touched" class="alert alert-danger">
+            * required
+          </div>
         </div>
       </div>
     </div>
 
-    <button type="button" class="btn btn-primary" (click)="editUser(currentUser.id)">Edit</button>
+    <button type="button" class="btn btn-primary" [disabled]="userForm.invalid"
+      (click)="editUser(currentUser.id)">Edit</button>
     <button type="button" class="btn btn-primary" (click)="deleteUser(currentUser.id)">Delete</button>
     <button class="btn btn-primary" (click)="goBack()">Back</button>
   </form>
@@ -70,21 +137,43 @@
 <div *ngIf="!currentUser">
   <h3>Create User: {{formUpd.first_name}} {{formUpd.last_name}}</h3>
 
-  <form [formGroup]="userForm2" (ngSubmit)="onSubmit(userForm2)">
+  <form novalidate [formGroup]="userForm2" (ngSubmit)="onSubmit(userForm2)">
     <div class="row">
       <div class="col-sm-6">
         <div class="form-group">
           <label for="firstName2">First name</label>
           <input type="text" id="firstName2" class="form-control" formControlName="first_name">
+
+          <div *ngIf="userForm2.get('first_name').hasError('required') && 
+    userForm2.get('first_name').touched" class="alert alert-danger">
+            * required
+          </div>
         </div>
+
         <div class="form-group">
           <label for="lastName2">Last name</label>
           <input type="text" id="lastName2" class="form-control" formControlName="last_name">
+
+          <div *ngIf="userForm2.get('last_name').hasError('required') && 
+            userForm2.get('last_name').touched" class="alert alert-danger">
+            * required
+          </div>
         </div>
+
         <div class="form-group">
           <label for="dob2">Dob</label>
           <input type="text" id="dob2" class="form-control" formControlName="dob">
+
+          <div *ngIf="userForm2.get('dob').hasError('required') && 
+          userForm2.get('dob').touched" class="alert alert-danger">
+            * required
+          </div>
+          <div *ngIf="userForm2.get('dob').hasError('pattern') && 
+          userForm2.get('dob').touched" class="alert alert-danger">
+            * Please match the required format (yyyy-mm-dd)
+          </div>
         </div>
+
         <div class="form-group">
           <label for="gender2">Gender</label>
           <select id="gender2" type="text" class="form-control" formControlName="gender">
@@ -92,29 +181,71 @@
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
+
+          <div *ngIf="userForm2.get('gender').hasError('required') && 
+          userForm2.get('gender').touched" class="alert alert-danger">
+            * required
+          </div>
         </div>
       </div>
+
       <div class="col-sm-6">
         <div class="form-group">
           <label for="email2">Email</label>
           <input type="text" id="email2" class="form-control" formControlName="email">
+
+          <div *ngIf="userForm2.get('email').hasError('required') && 
+          userForm2.get('email').touched" class="alert alert-danger">
+            * required
+          </div>
+          <div *ngIf="userForm2.get('email').hasError('pattern') && 
+          userForm2.get('email').touched" class="alert alert-danger">
+            * Please match the required format (test@example.com)
+          </div>
         </div>
+
         <div class="form-group">
           <label for="phone2">Phone</label>
           <input type="text" id="phone2" class="form-control" formControlName="phone">
+
+          <div *ngIf="userForm2.get('phone').hasError('required') && 
+          userForm2.get('phone').touched" class="alert alert-danger">
+            * required
+          </div>
+          <div *ngIf="userForm2.get('phone').hasError('pattern') && 
+          userForm2.get('phone').touched" class="alert alert-danger">
+            * Please match the required format (8-17 numbers)
+          </div>
         </div>
+
         <div class="form-group">
           <label for="website2">Website</label>
           <input type="text" id="website2" class="form-control" formControlName="website">
+
+          <div *ngIf="userForm2.get('website').hasError('required') && 
+          userForm2.get('website').touched" class="alert alert-danger">
+            * required
+          </div>
+          <div *ngIf="userForm2.get('website').hasError('pattern') && 
+          userForm2.get('website').touched" class="alert alert-danger">
+            * Please match the required format (https://www.example.com)
+          </div>
         </div>
+
         <div class="form-group">
           <label for="address2">Address</label>
           <input type="text" id="address2" class="form-control" formControlName="address">
+
+          <div *ngIf="userForm2.get('address').hasError('required') && 
+          userForm2.get('address').touched" class="alert alert-danger">
+            * required
+          </div>
         </div>
       </div>
     </div>
 
-    <button type="button" class="btn btn-primary" (click)="createUser()">Add User</button>
+    <button type="button" class="btn btn-primary" [disabled]="userForm2.invalid" (click)="createUser()">Add
+      User</button>
     <button class="btn btn-primary" (click)="goBack2()">Back</button>
   </form>
 </div>

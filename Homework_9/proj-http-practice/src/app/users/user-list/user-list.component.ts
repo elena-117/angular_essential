@@ -9,6 +9,10 @@ import { Router, ActivatedRoute } from "@angular/router";
   styleUrls: ["./user-list.component.scss"]
 })
 export class UserListComponent implements OnInit {
+  items = [];
+  pageOfItems: Array<any>;
+  pageSize: number;
+  totalUsers: number;
   users: UserModel;
   currentUser: UserModel;
 
@@ -19,9 +23,31 @@ export class UserListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this._httpService.getUsers().subscribe(res => {
+    this.setPage();
+  }
+
+  displayUsers(pageNum: string) {
+    this._httpService.getUsersPage(pageNum).subscribe(res => {
       this.users = res.result;
     });
+  }
+
+  setPage() {
+    this._httpService.getUsersPage("/users?page=1").subscribe(res => {
+      this.totalUsers = res._meta.totalCount;
+      this.items = Array(Math.round(res._meta.totalCount / 2))
+        .fill(0)
+        .map((x, i) => ({
+          id: i + 1,
+          pageNumber: `/users?page=${i / 10 + 1}`
+        }));
+    });
+  }
+
+  onChangePage(pageOfItems: Array<any>) {
+    // update current page of items
+    this.pageOfItems = pageOfItems;
+    this.displayUsers(this.pageOfItems[0].pageNumber);
   }
 
   getCurrentUser(selected: UserModel) {
