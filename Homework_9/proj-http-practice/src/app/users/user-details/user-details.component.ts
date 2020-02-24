@@ -19,8 +19,6 @@ export class UserDetailsComponent implements OnInit {
     private router: Router
   ) {}
   ngOnInit() {
-    console.log(this.activatedRoute.params);
-
     this.activatedRoute.params.forEach(params => {
       if (params["id"]) {
         this.id = params["id"];

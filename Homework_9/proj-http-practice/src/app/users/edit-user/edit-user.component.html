@@ -1,5 +1,5 @@
 <div *ngIf="currentUser">
-  <h3>Edit User: {{currentUser.first_name}} {{currentUser.last_name}}</h3>
+  <h3>{{ 'headers.edit_user' | translate }}: {{currentUser.first_name}} {{currentUser.last_name}}</h3>
 
   <form novalidate [formGroup]="userForm" (ngSubmit)="onSubmit(userForm)">
     <div class="row">
@@ -10,7 +10,7 @@
         </div>
 
         <div class="form-group">
-          <label for="first_name">First name</label>
+          <label for="first_name">{{ 'user-list.first_name' | translate }}</label>
           <input type="text" id="first_name" class="form-control" formControlName="first_name">
 
           <div *ngIf="userForm.get('first_name').hasError('required') && 
@@ -20,7 +20,7 @@
         </div>
 
         <div class="form-group">
-          <label for="last_name">Last name</label>
+          <label for="last_name">{{ 'user-list.last_name' | translate }}</label>
           <input type="text" id="last_name" class="form-control" formControlName="last_name">
 
           <div *ngIf="userForm.get('last_name').hasError('required') && 
@@ -30,7 +30,7 @@
         </div>
 
         <div class="form-group">
-          <label for="dob">Dob</label>
+          <label for="dob">{{ 'user-list.dob' | translate }}</label>
           <input type="text" id="dob" class="form-control" formControlName="dob">
 
           <div *ngIf="userForm.get('dob').hasError('required') && 
@@ -44,7 +44,7 @@
         </div>
 
         <div class="form-group">
-          <label for="gender">Gender</label>
+          <label for="gender">{{ 'user-list.gender' | translate }}</label>
           <select id="gender" type="text" class="form-control" formControlName="gender">
             <option></option>
             <option value="male">Male</option>
@@ -60,7 +60,7 @@
 
       <div class="col-sm-6">
         <div class="form-group">
-          <label for="email">Email</label>
+          <label for="email">{{ 'user-list.email' | translate }}</label>
           <input type="text" id="email" class="form-control" formControlName="email">
 
           <div *ngIf="userForm.get('email').hasError('required') && 
@@ -74,7 +74,7 @@
         </div>
 
         <div class="form-group">
-          <label for="phone">Phone</label>
+          <label for="phone">{{ 'user-list.phone' | translate }}</label>
           <input type="text" id="phone" class="form-control" formControlName="phone">
 
           <div *ngIf="userForm.get('phone').hasError('required') && 
@@ -88,7 +88,7 @@
         </div>
 
         <div class="form-group">
-          <label for="website">Website</label>
+          <label for="website">{{ 'user-list.website' | translate }}</label>
           <input type="text" id="website" class="form-control" formControlName="website">
 
           <div *ngIf="userForm.get('website').hasError('required') && 
@@ -102,7 +102,7 @@
         </div>
 
         <div class="form-group">
-          <label for="address">Address</label>
+          <label for="address">{{ 'user-list.address' | translate }}</label>
           <input type="text" id="address" class="form-control" formControlName="address">
 
           <div *ngIf="userForm.get('address').hasError('required') && 
@@ -112,7 +112,7 @@
         </div>
 
         <div class="form-group">
-          <label for="status">Status</label>
+          <label for="status">{{ 'user-list.status' | translate }}</label>
           <select id="status" type="text" class="form-control" formControlName="status">
             <option></option>
             <option value="active">Active</option>
@@ -128,20 +128,21 @@
     </div>
 
     <button type="button" class="btn btn-primary" [disabled]="userForm.invalid"
-      (click)="editUser(currentUser.id)">Edit</button>
-    <button type="button" class="btn btn-primary" (click)="deleteUser(currentUser.id)">Delete</button>
-    <button class="btn btn-primary" (click)="goBack()">Back</button>
+      (click)="editUser(currentUser.id)">{{ 'buttons.edit' | translate }}</button>
+    <button type="button" class="btn btn-primary"
+      (click)="deleteUser(currentUser.id)">{{ 'buttons.delete' | translate }}</button>
+    <button class="btn btn-primary" (click)="goBack()">{{ 'buttons.back' | translate }}</button>
   </form>
 </div>
 
 <div *ngIf="!currentUser">
-  <h3>Create User: {{formUpd.first_name}} {{formUpd.last_name}}</h3>
+  <h3>{{ 'headers.create_user' | translate }}: {{formUpd.first_name}} {{formUpd.last_name}}</h3>
 
   <form novalidate [formGroup]="userForm2" (ngSubmit)="onSubmit(userForm2)">
     <div class="row">
       <div class="col-sm-6">
         <div class="form-group">
-          <label for="firstName2">First name</label>
+          <label for="firstName2">{{ 'user-list.first_name' | translate }}</label>
           <input type="text" id="firstName2" class="form-control" formControlName="first_name">
 
           <div *ngIf="userForm2.get('first_name').hasError('required') && 
@@ -151,7 +152,7 @@
         </div>
 
         <div class="form-group">
-          <label for="lastName2">Last name</label>
+          <label for="lastName2">{{ 'user-list.last_name' | translate }}</label>
           <input type="text" id="lastName2" class="form-control" formControlName="last_name">
 
           <div *ngIf="userForm2.get('last_name').hasError('required') && 
@@ -161,7 +162,7 @@
         </div>
 
         <div class="form-group">
-          <label for="dob2">Dob</label>
+          <label for="dob2">{{ 'user-list.dob' | translate }}</label>
           <input type="text" id="dob2" class="form-control" formControlName="dob">
 
           <div *ngIf="userForm2.get('dob').hasError('required') && 
@@ -175,7 +176,7 @@
         </div>
 
         <div class="form-group">
-          <label for="gender2">Gender</label>
+          <label for="gender2">{{ 'user-list.gender' | translate }}</label>
           <select id="gender2" type="text" class="form-control" formControlName="gender">
             <option></option>
             <option value="male">Male</option>
@@ -191,7 +192,7 @@
 
       <div class="col-sm-6">
         <div class="form-group">
-          <label for="email2">Email</label>
+          <label for="email2">{{ 'user-list.email' | translate }}</label>
           <input type="text" id="email2" class="form-control" formControlName="email">
 
           <div *ngIf="userForm2.get('email').hasError('required') && 
@@ -205,7 +206,7 @@
         </div>
 
         <div class="form-group">
-          <label for="phone2">Phone</label>
+          <label for="phone2">{{ 'user-list.phone' | translate }}</label>
           <input type="text" id="phone2" class="form-control" formControlName="phone">
 
           <div *ngIf="userForm2.get('phone').hasError('required') && 
@@ -219,7 +220,7 @@
         </div>
 
         <div class="form-group">
-          <label for="website2">Website</label>
+          <label for="website2">{{ 'user-list.website' | translate }}</label>
           <input type="text" id="website2" class="form-control" formControlName="website">
 
           <div *ngIf="userForm2.get('website').hasError('required') && 
@@ -233,7 +234,7 @@
         </div>
 
         <div class="form-group">
-          <label for="address2">Address</label>
+          <label for="address2">{{ 'user-list.address' | translate }}</label>
           <input type="text" id="address2" class="form-control" formControlName="address">
 
           <div *ngIf="userForm2.get('address').hasError('required') && 
@@ -244,8 +245,8 @@
       </div>
     </div>
 
-    <button type="button" class="btn btn-primary" [disabled]="userForm2.invalid" (click)="createUser()">Add
-      User</button>
-    <button class="btn btn-primary" (click)="goBack2()">Back</button>
+    <button type="button" class="btn btn-primary" [disabled]="userForm2.invalid"
+      (click)="createUser()">{{ 'buttons.add_user' | translate }}</button>
+    <button class="btn btn-primary" (click)="goBack2()">{{ 'buttons.back' | translate }}</button>
   </form>
 </div>

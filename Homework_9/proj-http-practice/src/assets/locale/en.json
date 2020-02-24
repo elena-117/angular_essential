@@ -1,0 +1,37 @@
+{
+  "navbar": {
+    "home": "Home",
+    "users": "Users"
+  },
+  "headers": {
+    "create_user": "Create User",
+    "edit_user": "Edit User"
+  },
+  "buttons": {
+    "new_user": "New User",
+    "view": "View",
+    "edit": "Edit",
+    "delete": "Delete",
+    "back": "Back",
+    "add_user": "Add User"
+  },
+  "user-list": {
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "gender": "Gender",
+    "email": "Email",
+    "phone": "Phone",
+    "status": "Status",
+    "action": "Action",
+    "dob": "Dob",
+    "website": "Website",
+    "avatar": "Avatar",
+    "about": "About",
+    "address": "Address"
+  },
+  "LANGUAGES": {
+    "EN": "English",
+    "RU": "Russian",
+    "TITLE": "Language"
+  }
+}

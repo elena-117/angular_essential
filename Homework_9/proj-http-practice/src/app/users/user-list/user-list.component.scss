@@ -8,6 +8,11 @@ button {
   margin-right: 35px;
 }
 
+th.first-name,
+th.last-name {
+  min-width: 120px;
+}
+
 th.action {
   min-width: 200px;
 }

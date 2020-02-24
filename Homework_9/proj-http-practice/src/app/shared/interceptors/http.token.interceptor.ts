@@ -13,24 +13,29 @@ export class HttpTokenInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    // add authorization header with jwt token if available
-    let token = "RY6PLSkqFxlzfF5wSmLbtMiIs6EBzzZon4jt";
+    const dot = /^\./;
+    if (!dot.exec(request.url)) {
+      // add authorization header with jwt token if available
+      let token = "RY6PLSkqFxlzfF5wSmLbtMiIs6EBzzZon4jt";
 
-    if (token) {
-      request = request.clone({
-        setHeaders: {
-          Authorization: "Bearer " + token
-        }
-      });
-    }
-    const exp = /^(http:|https:)/;
-    if (!exp.exec(request.url)) {
-      const url = "https://gorest.co.in/public-api";
+      if (token) {
+        request = request.clone({
+          setHeaders: {
+            Authorization: "Bearer " + token
+          }
+        });
+      }
+      const exp = /^(http:|https:)/;
+      if (!exp.exec(request.url)) {
+        const url = "https://gorest.co.in/public-api";
 
-      request = request.clone({
-        url: url + request.url
-      });
+        request = request.clone({
+          url: url + request.url
+        });
+      }
+      return next.handle(request);
+    } else {
+      return next.handle(request);
     }
-    return next.handle(request);
   }
 }

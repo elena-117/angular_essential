@@ -31,7 +31,7 @@ export class EditUserComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.activatedRoute.params);
+    // console.log(this.activatedRoute.params);
 
     this.activatedRoute.params.forEach(params => {
       if (params["id"]) {
@@ -141,10 +141,8 @@ export class EditUserComponent implements OnInit {
     this.userForm2.valueChanges.subscribe(res => {
       for (const key in res) {
         if (res[key] != null) this.formUpd[key] = res[key];
-        // console.log(this.formUpd[key]);
       }
     });
-    console.log(this.userForm2.value);
   }
 
   createUser() {

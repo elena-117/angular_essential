@@ -1,0 +1,37 @@
+{
+  "navbar": {
+    "home": "Дом",
+    "users": "Пользователи"
+  },
+  "headers": {
+    "create_user": "Создать",
+    "edit_user": "Редактировать"
+  },
+  "buttons": {
+    "new_user": "Создать",
+    "view": "Дет.",
+    "edit": "Ред.",
+    "delete": "Удал.",
+    "back": "Назад",
+    "add_user": "Добавить"
+  },
+  "user-list": {
+    "first_name": "Имя",
+    "last_name": "Фамилия",
+    "gender": "Пол",
+    "email": "Эл. почта",
+    "phone": "Телефон",
+    "status": "Статус",
+    "action": "Опции",
+    "dob": "Д.р.",
+    "website": "Сайт",
+    "avatar": "Аватар",
+    "about": "Описание",
+    "address": "Адрес"
+  },
+  "LANGUAGES": {
+    "EN": "Английский",
+    "RU": "Русский",
+    "TITLE": "Язык"
+  }
+}
