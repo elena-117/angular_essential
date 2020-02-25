@@ -1,14 +1,16 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { UserModel } from "src/app/shared/models/user.model";
 import { HttpService } from "src/app/shared/services/http.service";
 import { Router, ActivatedRoute } from "@angular/router";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-user-list",
   templateUrl: "./user-list.component.html",
   styleUrls: ["./user-list.component.scss"]
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent implements OnInit, OnDestroy {
+  private subscription: Subscription = new Subscription();
   items = [];
   pageOfItems: Array<any>;
   pageSize: number;
@@ -27,21 +29,25 @@ export class UserListComponent implements OnInit {
   }
 
   displayUsers(pageNum: string) {
-    this._httpService.getUsersPage(pageNum).subscribe(res => {
-      this.users = res.result;
-    });
+    this.subscription.add(
+      this._httpService.getUsersPage(pageNum).subscribe(res => {
+        this.users = res.result;
+      })
+    );
   }
 
   setPage() {
-    this._httpService.getUsersPage("/users?page=1").subscribe(res => {
-      this.totalUsers = res._meta.totalCount;
-      this.items = Array(Math.round(res._meta.totalCount / 2))
-        .fill(0)
-        .map((x, i) => ({
-          id: i + 1,
-          pageNumber: `/users?page=${i / 10 + 1}`
-        }));
-    });
+    this.subscription.add(
+      this._httpService.getUsersPage("/users?page=1").subscribe(res => {
+        this.totalUsers = res._meta.totalCount;
+        this.items = Array(Math.round(res._meta.totalCount / 2))
+          .fill(0)
+          .map((x, i) => ({
+            id: i + 1,
+            pageNumber: `/users?page=${i / 10 + 1}`
+          }));
+      })
+    );
   }
 
   onChangePage(pageOfItems: Array<any>) {
@@ -80,5 +86,9 @@ export class UserListComponent implements OnInit {
     } else {
       return;
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

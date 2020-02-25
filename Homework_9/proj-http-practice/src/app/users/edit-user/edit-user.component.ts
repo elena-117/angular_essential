@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { UserModel } from "src/app/shared/models/user.model";
 import { ActivatedRoute, Router } from "@angular/router";
 import { HttpService } from "src/app/shared/services/http.service";
@@ -8,13 +8,15 @@ import {
   FormControl,
   Validators
 } from "@angular/forms";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-edit-user",
   templateUrl: "./edit-user.component.html",
   styleUrls: ["./edit-user.component.scss"]
 })
-export class EditUserComponent implements OnInit {
+export class EditUserComponent implements OnInit, OnDestroy {
+  private subscription: Subscription = new Subscription();
   public users: UserModel;
   public currentUser: UserModel;
   public id: string;
@@ -45,11 +47,13 @@ export class EditUserComponent implements OnInit {
   }
 
   getCurrentUser(id: string) {
-    this._httpService.getCurrentUser(id).subscribe(res => {
-      this.currentUser = res.result;
-      this.editForm(this.currentUser);
-      this.formUpd = this.currentUser;
-    });
+    this.subscription.add(
+      this._httpService.getCurrentUser(id).subscribe(res => {
+        this.currentUser = res.result;
+        this.editForm(this.currentUser);
+        this.formUpd = this.currentUser;
+      })
+    );
   }
 
   editForm(currentUser: UserModel) {
@@ -138,23 +142,27 @@ export class EditUserComponent implements OnInit {
       gender: ""
     };
 
-    this.userForm2.valueChanges.subscribe(res => {
-      for (const key in res) {
-        if (res[key] != null) this.formUpd[key] = res[key];
-      }
-    });
+    this.subscription.add(
+      this.userForm2.valueChanges.subscribe(res => {
+        for (const key in res) {
+          if (res[key] != null) this.formUpd[key] = res[key];
+        }
+      })
+    );
   }
 
   createUser() {
-    this._httpService.setUser(this.formUpd).subscribe(res => {
-      this.formUpd = res;
-      console.log(res);
-      this.router
-        .navigateByUrl("/", { skipLocationChange: true })
-        .then(() =>
-          this.router.navigate([`users/user-details/${res["result"]["id"]}`])
-        );
-    });
+    this.subscription.add(
+      this._httpService.setUser(this.formUpd).subscribe(res => {
+        this.formUpd = res;
+        console.log(res);
+        this.router
+          .navigateByUrl("/", { skipLocationChange: true })
+          .then(() =>
+            this.router.navigate([`users/user-details/${res["result"]["id"]}`])
+          );
+      })
+    );
   }
 
   deleteUser(id: string) {
@@ -180,5 +188,9 @@ export class EditUserComponent implements OnInit {
     this.router.navigate(["../"], {
       relativeTo: this.activatedRoute
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
