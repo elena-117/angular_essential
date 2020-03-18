@@ -1,0 +1,60 @@
+<mat-toolbar class="header">Hello {{currentUser.userName}}
+  <button mat-stroked-button (click)="logout()">Log out</button>
+</mat-toolbar>
+<mat-card class="card">
+  <mat-card-title>Users</mat-card-title>
+  <mat-card-content>
+    <mat-toolbar class="sidenav-header"><button mat-button (click)="sidenav.toggle()">Side menu</button></mat-toolbar>
+
+    <mat-sidenav-container class="side-container">
+      <mat-sidenav #sidenav mode="side" opened class="sidenav">
+        hello
+      </mat-sidenav>
+
+      <mat-sidenav-content class="main-content">
+        <mat-accordion *ngIf="userDataArray" class="accordion">
+          <mat-expansion-panel *ngFor="let item of userDataArray.result">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{item.first_name}} {{item.last_name}}
+              </mat-panel-title>
+              <mat-panel-description>
+                {{item.email}}
+              </mat-panel-description>
+
+              <button mat-stroked-button class="btn-edit" (click)="editUser($event, item.id)">Edit</button>
+            </mat-expansion-panel-header>
+
+            <mat-list role="list">
+              <mat-list-item role="listitem">First Name: {{item.first_name}}</mat-list-item>
+              <mat-list-item role="listitem">Last Name: {{item.last_name}}</mat-list-item>
+              <mat-list-item role="listitem">Email: {{item.email}}</mat-list-item>
+              <mat-list-item role="listitem">Phone: {{item.phone}}</mat-list-item>
+              <mat-list-item role="listitem">Address: {{item.address}}</mat-list-item>
+              <mat-list-item role="listitem">Dob: {{item.dob}}</mat-list-item>
+              <mat-list-item role="listitem">Website: &nbsp; <a href="{{item.website}}">{{item.website}}</a>
+              </mat-list-item>
+            </mat-list>
+
+          </mat-expansion-panel>
+          <!-- <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Self aware panel
+              </mat-panel-title>
+              <mat-panel-description>
+                Currently I am {{panelOpenState ? 'open' : 'closed'}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>I'm visible because I am open</p>
+          </mat-expansion-panel> -->
+        </mat-accordion>
+
+        <mat-spinner class="loader" *ngIf="!userDataArray"></mat-spinner>
+
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+
+    <mat-toolbar class="example-footer">Footer</mat-toolbar>
+  </mat-card-content>
+</mat-card>
