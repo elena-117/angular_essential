@@ -14,11 +14,15 @@ export class UsersService {
     return this.http.get<UsersResponseModel>("/users");
   }
 
-  getCurrentUser(id): Observable<UsersResponseModel> {
+  getCurrentUser(id: string): Observable<UsersResponseModel> {
     return this.http.get<UsersResponseModel>(`/users/${id}`);
   }
 
   editUser(id: string, formUpd: UserModel) {
     return this.http.patch<UsersResponseModel>(`/users/${id}`, formUpd);
+  }
+
+  deleteUser(id: string): Observable<UsersResponseModel> {
+    return this.http.delete<UsersResponseModel>(`/users/${id}`);
   }
 }

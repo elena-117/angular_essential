@@ -10,7 +10,13 @@
   width: 100%;
 }
 
-.btn-edit {
+.mat-stroked-button.btn {
+  padding: 0;
+  margin-right: 8px;
+  min-width: 35px;
+}
+
+.mat-stroked-button.btn-delete {
   margin-right: 25px;
 }
 

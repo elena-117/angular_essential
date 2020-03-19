@@ -22,7 +22,12 @@
                 {{item.email}}
               </mat-panel-description>
 
-              <button mat-stroked-button class="btn-edit" (click)="editUser($event, item.id)">Edit</button>
+              <button mat-stroked-button class="btn btn-edit" (click)="editUser($event, item.id)">
+                <mat-icon title="Edit">edit</mat-icon>
+              </button>
+              <button mat-stroked-button class="btn btn-delete" (click)="deleteUser($event, item.id)">
+                <mat-icon title="Delete">delete</mat-icon>
+              </button>
             </mat-expansion-panel-header>
 
             <mat-list role="list">
